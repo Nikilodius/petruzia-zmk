@@ -1,11 +1,23 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 
+/*
+ * PetruziaMini — ZMK Studio keymap.
+ *
+ * Base layer = прежняя QWERTY-раскладка, одно изменение:
+ *   позиция 29 (SLASH) теперь hold-слой Fn (&mo 1).
+ * В слое Fn:
+ *   позиция 29 — снова SLASH,
+ *   позиция 30 (место Ctrl) — &studio_unlock для разблокировки ZMK Studio.
+ * extra1 / extra2 — резервные слои, ZMK Studio сможет их включать и редактировать.
+ */
+
 / {
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
+            display-name = "Base";
             bindings = <
                 &kp Q &kp W &kp E &kp R &kp T
                 &kp Y &kp U &kp I &kp O &kp P
@@ -14,11 +26,36 @@
                 &kp H &kp J &kp K &kp L &kp ENTER
 
                 &kp Z &kp X &kp C &kp V &kp B
-                &kp N &kp M &kp COMMA &kp DOT &kp SLASH
+                &kp N &kp M &kp COMMA &kp DOT &mo 1
 
                 &kp LCTRL &kp LGUI &kp LALT &kp SPACE
                 &kp BACKSPACE &kp TAB
             >;
+        };
+
+        fn_layer {
+            display-name = "Fn";
+            bindings = <
+                &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans &trans
+
+                &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans &trans
+
+                &trans &trans &trans &trans &trans
+                &trans &trans &trans &kp SLASH &trans
+
+                &studio_unlock &kp LGUI &kp LALT &kp SPACE
+                &kp BACKSPACE &kp TAB
+            >;
+        };
+
+        extra1 {
+            status = "reserved";
+        };
+
+        extra2 {
+            status = "reserved";
         };
     };
 };
